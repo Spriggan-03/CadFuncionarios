@@ -4,10 +4,6 @@ import DAO.PessoaDAO;
 import DAO.FuncionarioDAO;
 import DAO.ProjetoDAO;
 
-import Classes.Pessoa;
-import Classes.Funcionario;
-import Classes.Projeto;
-
 import java.util.List;
 import java.util.Scanner;
 
