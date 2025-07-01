@@ -7,9 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DAO responsável pelas operações de CRUD da entidade Pessoa.
+ */
 public class PessoaDAO {
-	
-	public void inserir(Pessoa pessoa) {
+
+    // Insere uma nova pessoa no banco
+    public void inserir(Pessoa pessoa) {
         String sql = "INSERT INTO pessoa (nome, email) VALUES (?, ?)";
 
         try (Connection conn = Conexao.conectar();
@@ -25,6 +29,7 @@ public class PessoaDAO {
         }
     }
 
+    // Lista todas as pessoas cadastradas
     public List<Pessoa> listar() {
         List<Pessoa> lista = new ArrayList<>();
         String sql = "SELECT * FROM pessoa";
@@ -48,4 +53,37 @@ public class PessoaDAO {
         return lista;
     }
 
+    // Atualiza nome e email de uma pessoa existente
+    public void atualizar(Pessoa pessoa) {
+        String sql = "UPDATE pessoa SET nome = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, pessoa.getNome());
+            stmt.setString(2, pessoa.getEmail());
+            stmt.setInt(3, pessoa.getId());
+            stmt.executeUpdate();
+            System.out.println("Pessoa atualizada com sucesso!");
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar pessoa: " + e.getMessage());
+        }
+    }
+
+    // Exclui uma pessoa pelo ID
+    public void excluir(int id) {
+        String sql = "DELETE FROM pessoa WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            System.out.println("Pessoa excluída com sucesso!");
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao excluir pessoa: " + e.getMessage());
+        }
+    }
 }
