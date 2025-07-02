@@ -37,6 +37,7 @@ public class Principal {
         	System.out.println("9 - Cadastrar Projeto");
         	System.out.println("10 - Atualizar Projeto");
         	System.out.println("11 - Excluir Projeto");
+        	System.out.println("12 - Listar Projetos");
 
         	// Sair
         	System.out.println("0 - Sair");
@@ -187,6 +188,15 @@ public class Principal {
                 System.out.print("ID do Projeto a excluir: ");
                 int idExcluirProj = sc.nextInt();
                 projetoDAO.excluir(idExcluirProj);
+                break;
+                
+                
+            case 12:
+                // Listagem de todos os projetos cadastrados
+                List<Projeto> projetos = projetoDAO.listar();
+                for (Projeto projeto : projetos) {
+                    System.out.println(projeto);
+                }
                 break;
 
                 
